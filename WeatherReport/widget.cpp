@@ -33,22 +33,21 @@ void Widget::replyFinished(QNetworkReply* mreply){
         // now only return "weatherinfo" and its key
         // not the pairs of info
         //
-        QJsonObject jj = jd.object().value(QString("weatherinfo")); // returns the pairs
-        for(QJsonObject::iterator iter = jj.begin();
-            iter != jj.end();
-            ++iter){
-            QString key = iter.key();
-            QString defaultValue = QString("Not a string.");
-            QJsonValueRef value = iter.value();
-            QLabel* keyLabel = new QLabel(key);
-            QLabel* valueLabel = new QLabel(value.toString());
-            QHBoxLayout* valueLayout = new QHBoxLayout();
-            valueLayout->deleteLater();
-            valueLayout->addWidget(keyLabel);
-            valueLayout->addWidget(valueLabel);
-            ui->infoLayout->addLayout(valueLayout);
-            this->show();
+        QJsonObject jj = jd.object().value(QString("weatherinfo")).toObject(); // returns the pairs
+        ui->tableWidget->setRowCount(jj.length());
+        ui->tableWidget->setColumnCount(2);
+        qDebug()<<jj.length();
+
+        for(int i = 0; i <= jj.size(); ++i)
+            {
+            QString key = jj.keys().at(i);
+            QString value = jj.value(key).toString();
+            qDebug()<<key<<":\t"<<value<<"\n";
+            ui->tableWidget->setItem(i, 0, new QTableWidgetItem(key));
+            ui->tableWidget->setItem(i, 1, new QTableWidgetItem(value));
+
         }
+
     }
     else{
         qDebug()<<"The reply cannot be converted to a JSON object.\n";

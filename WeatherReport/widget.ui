@@ -33,7 +33,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="infoLayout"/>
+    <widget class="QTableWidget" name="tableWidget"/>
    </item>
   </layout>
  </widget>
