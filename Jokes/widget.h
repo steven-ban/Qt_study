@@ -26,12 +26,12 @@ private:
     QNetworkReply *reply;
     QNetworkRequest *request;
 
-    QList<QMap<QString, QString, QString> > jokesList;
+    QList<QMap<QString, QString> > jokesList;
 
 private slots:
     void replyFinished(QNetworkReply*);
     void pushButtonClicked();
-    void jokeSelected();
+    void jokeSelected(QListWidgetItem*);
 };
 
 #endif // WIDGET_H

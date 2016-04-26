@@ -28,7 +28,14 @@ void Widget::pushButtonClicked(){
     this->manager->get(*request);
 }
 
-void Widget::jokeSelected(){
+void Widget::jokeSelected(QListWidgetItem* jokeItem){
+    QString title = jokeItem->text();
+    for(int i = 0; i <= this->jokesList.size(); ++i){
+        if(this->jokesList.at(i)["title"] == title){
+            ui->textEdit->setText(this->jokesList.at(i)["text"]);
+            ui->textEdit->update();
+        }
+    }
 
 }
 
@@ -64,6 +71,8 @@ void Widget::replyFinished(QNetworkReply* mreply){
     for(i = 0 ; i<=this->jokesList.size(); ++i){
         ui->listWidget->addItem(jokesList.at(i).value("title"));
     }
+    connect(ui->listWidget, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(jokeSelected()));
 
 }
 
