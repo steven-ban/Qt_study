@@ -20,3 +20,7 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+
+
+# qt creater user file
+*.user
