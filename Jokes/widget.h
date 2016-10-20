@@ -7,6 +7,7 @@
 #include<QNetworkRequest>
 #include<QMap>
 #include<QList>
+#include<QListWidgetItem>
 
 namespace Ui {
 class Widget;

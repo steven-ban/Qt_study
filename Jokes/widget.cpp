@@ -30,7 +30,7 @@ void Widget::pushButtonClicked(){
 
 void Widget::jokeSelected(QListWidgetItem* jokeItem){
     QString title = jokeItem->text();
-    for(int i = 0; i <= this->jokesList.size(); ++i){
+    for(int i = 0; i < this->jokesList.size(); ++i){
         if(this->jokesList.at(i)["title"] == title){
             ui->textEdit->setText(this->jokesList.at(i)["text"]);
             ui->textEdit->update();
@@ -57,7 +57,7 @@ void Widget::replyFinished(QNetworkReply* mreply){
             QJsonObject itemO = itemV.toObject();
             QString jokeText = itemO.value("title").toString();
             //ui->listWidget->insertItem(i, jokeText);
-            QMap<QString, QString, QString> joke;
+            QMap<QString, QString> joke;
             joke["title"] = itemO.value("title").toString();
             joke["text"] = itemO.value("text").toString();
             joke["time"] = itemO.value("ct").toString();
@@ -68,11 +68,11 @@ void Widget::replyFinished(QNetworkReply* mreply){
     }
 
 
-    for(i = 0 ; i<=this->jokesList.size(); ++i){
+    for(int i = 0 ; i<this->jokesList.size(); ++i){
         ui->listWidget->addItem(jokesList.at(i).value("title"));
     }
     connect(ui->listWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(jokeSelected()));
+            this, SLOT(jokeSelected(QListWidgetItem*)));
 
 }
 
