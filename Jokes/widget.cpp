@@ -21,7 +21,9 @@ Widget::Widget(QWidget *parent) :
     this->request->setRawHeader(QByteArray("apikey"), QByteArray("8cbdc46ade09e505fd44c06a8d5eaae8"));
 
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(pushButtonClicked()));
-    connect(ui->listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(jokeSelected()));
+    // connect(ui->listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(jokeSelected()));
+
+    connect(ui->showRawDataButton, SIGNAL(clicked()), this, SLOT(showRawData()));
 }
 
 void Widget::pushButtonClicked(){
@@ -39,10 +41,16 @@ void Widget::jokeSelected(QListWidgetItem* jokeItem){
 
 }
 
+void Widget::showRawData(){
+    ui->textEdit->setText(this->rawData);
+    ui->textEdit->update();
+}
+
 void Widget::replyFinished(QNetworkReply* mreply){
     QByteArray data = mreply->readAll();
+    this->rawData = data;
+    qDebug()<<data.size();
     QJsonDocument jd = QJsonDocument::fromJson(data);
-    //qDebug()<<data;
     if(jd.isObject()){
         QJsonObject jo = jd.object();
         //qDebug()<<jo.size();

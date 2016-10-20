@@ -28,11 +28,13 @@ private:
     QNetworkRequest *request;
 
     QList<QMap<QString, QString> > jokesList;
+    QByteArray rawData;
 
 private slots:
     void replyFinished(QNetworkReply*);
     void pushButtonClicked();
     void jokeSelected(QListWidgetItem*);
+    void showRawData();
 };
 
 #endif // WIDGET_H
