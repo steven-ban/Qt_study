@@ -3,10 +3,24 @@
 #include<QWidget>
 #include<QVBoxLayout>
 #include<QLabel>
+#include<QTextCodec>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // available codecs
+    /*
+    qDebug()<<"Available codecs: ";
+    QList<QByteArray> availableCodecsList = QTextCodec::availableCodecs();
+    for(auto codecName = availableCodecsList.constBegin(); \
+        codecName != availableCodecsList.constEnd(); \
+        ++codecName){
+        qDebug()<<*codecName;
+    }
+    */
+
+    qDebug()<<"current codec: "<<QTextCodec::codecForLocale()->name();
 
     // console test
     QString str1("ÄãºÃQt£¡");
