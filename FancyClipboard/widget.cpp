@@ -3,6 +3,9 @@
 
 #include<QClipboard>
 #include<QApplication>
+#include<QDebug>
+#include<QMessageBox>
+#include<QMimeData>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -12,17 +15,54 @@ Widget::Widget(QWidget *parent) :
 
     clipBrd = QApplication::clipboard();
 
-    ui->listWidget->addItem(clipBrd->text());
-
     connect(clipBrd, SIGNAL(dataChanged()), this, SLOT(appendClip()));
-
-
-
+    connect(ui->helpButton, SIGNAL(clicked()), this, SLOT(showHelpInfo()));
+    connect(ui->delButton, SIGNAL(clicked()), this, SLOT(delItem()));
+    connect(ui->clearButton, SIGNAL(clicked()), ui->listWidget, SLOT(clear()));
+    connect(ui->listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(copy2Clipbrd(QListWidgetItem*)));
 }
 
+void Widget::copy2Clipbrd(QListWidgetItem *item){
+    this->clipBrd->setText(item->text());
+    return;
+}
+
+void Widget::delItem(){
+    ui->listWidget->takeItem(ui->listWidget->currentRow());
+
+
+    return;
+}
+
+void Widget::showHelpInfo(){
+    int ret = QMessageBox::information(this, tr("Help of FancyClipboard"), \
+                                       tr("<p>This is ...</p><p>Use:</p>"), \
+                                       QMessageBox::Cancel);
+}
+
+
 void Widget::appendClip(){
+    const QMimeData *mimeData = this->clipBrd->mimeData();
+
+
     QString text = clipBrd->text();
-    ui->listWidget->insertItem(0, text);
+    QListWidgetItem *item = new QListWidgetItem(text);
+    if(ui->listWidget->count()%2==0){
+        item->setBackgroundColor(QColor(240, 255, 255));
+    }
+    if(mimeData->hasImage()){
+        item->setIcon(QIcon(":/listIcon/icon/img.png"));
+    } else if(mimeData->hasHtml()){
+        item->setIcon(QIcon(":/listIcon/icon/html.png"));
+    } else{
+        item->setIcon(QIcon(":/listIcon/icon/text.png"));
+    }
+
+
+
+    ui->listWidget->addItem(item);
+
+
     return;
 }
 

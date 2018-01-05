@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/appIcon">
+        <file>icon/app.png</file>
+    </qresource>
+    <qresource prefix="/listIcon">
+        <file>icon/html.png</file>
+        <file>icon/img.png</file>
+        <file>icon/text.png</file>
+    </qresource>
+    <qresource prefix="/translator">
+        <file>fc.qm</file>
+    </qresource>
+</RCC>

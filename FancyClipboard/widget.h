@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include<QListWidgetItem>
 
 namespace Ui {
 class Widget;
@@ -21,6 +22,10 @@ private:
 
 public slots:
     void appendClip();
+    // void changeClip();
+    void showHelpInfo();
+    void delItem();
+    void copy2Clipbrd(QListWidgetItem*);
 };
 
 #endif // WIDGET_H

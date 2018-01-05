@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = FancyClipboard
 TEMPLATE = app
 
+TRANSLATIONS += fc.ts
+
 
 SOURCES += main.cpp\
         widget.cpp
@@ -18,3 +20,12 @@ SOURCES += main.cpp\
 HEADERS  += widget.h
 
 FORMS    += widget.ui
+
+DISTFILES += \
+    icon/app.png \
+    icon/html.png \
+    icon/img.png \
+    icon/text.png
+
+RESOURCES += \
+    resources.qrc
