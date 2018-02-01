@@ -46,6 +46,13 @@ void Widget::appendClip(){
 
 
     QString text = clipBrd->text();
+    for(int i=0;i!=ui->listWidget->count();++i){
+        QListWidgetItem* curItem = ui->listWidget->item(i);
+        if(curItem->text() == text){
+            return;
+        }
+    }
+
     QListWidgetItem *item = new QListWidgetItem(text);
     if(ui->listWidget->count()%2==0){
         item->setBackgroundColor(QColor(240, 255, 255));
@@ -57,7 +64,6 @@ void Widget::appendClip(){
     } else{
         item->setIcon(QIcon(":/listIcon/icon/text.png"));
     }
-
 
 
     ui->listWidget->addItem(item);
